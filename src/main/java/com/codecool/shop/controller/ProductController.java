@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/", "/cart"})
@@ -41,8 +43,13 @@ public class ProductController extends HttpServlet {
         // context.setVariables(params);
         engine.process("product/index.html", context, resp.getWriter());
 
-        HashMap<Product, Integer> cart = Cart.getInstance();
-        String productId = req.getParameter("id");
+        HashMap<Product, Integer> shoppingCart = Cart.getInstance();
+        if (req.getParameter("id") != null) {
+            String productId = req.getParameter("id");
+            for (Product product : ProductDaoMem.getInstance().getAll()) {
+                if (productId.equals(String.valueOf(product.getId()))) Cart.addToCart(product);
+            }
+        }
 
     }
 
