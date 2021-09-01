@@ -24,26 +24,57 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
-    <!-- <script src="static/js/add_to_cart.js"></script> -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/wave.css" />
+
+    <script src="/static/js/sorting.js" defer></script>
+
+
 </head>
 
 <body>
 
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
-    <p id="cart">Items</p>
 </div>
 
 <div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Suppliers
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li th:each="sup : ${suppliers}"><a href="#" th:attr="data-id=${sup.getId()}" th:data-name="${sup.getName()}" class="supplier-select" th:text="${sup.name}">Supplier</a></li>        </ul>
+    </div>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li th:each="cat : ${categories}"><a href="#" th:attr="data-id=${cat.getId()}" th:data-name="${cat.getName()}" class="category-select" th:text="${cat.name}">Category</a></li>        </ul>
+    </div>
+
+    <div class="search">
+        <label>
+            <input type="text" placeholder="Search..">
+        </label>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="category-title">
+        <strong id="sort-title">All products</strong>
     </div>
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="" src="https://placehold.it/400x250/000/fff" th:attr="src='static/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
@@ -53,7 +84,7 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" th:href="@{'/cart?id=' + ${prod.getId()}}">Add to cart</a>
+                        <a class="btn btn-success" href="#">Add to cart</a>
                     </div>
                 </div>
             </div>

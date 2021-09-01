@@ -13,7 +13,7 @@ public class Cart {
         return shoppingCart;
     }
 
-    public static void addToCart(Product product){
+    public void addToCart(Product product){
         if (checkIfProductInCart(product)) increaseProductQuantity(product);
         else shoppingCart.put(product, 1);
     }
@@ -22,7 +22,7 @@ public class Cart {
         shoppingCart.remove(product);
     }
 
-    private static void increaseProductQuantity(Product product) {
+    private void increaseProductQuantity(Product product) {
         Integer quantity = shoppingCart.get(product);
         if (quantity != null) shoppingCart.put(product, ++quantity);
     }
@@ -33,7 +33,7 @@ public class Cart {
         else if (quantity != null) removeFromCart(product);
     }
 
-    private static boolean checkIfProductInCart(Product product){
+    private boolean checkIfProductInCart(Product product){
         for (Product myProduct : shoppingCart.keySet()) {
             if (myProduct.equals(product)) return true;
         }
