@@ -33,6 +33,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/wave.css" />
 
     <script src="/static/js/sorting.js" defer></script>
+    <script src="/static/js/addToCart.js"></script>
 
 
 </head>
@@ -41,6 +42,7 @@
 
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
+    <p id="cart">.</p>
 </div>
 
 <div class="container">
@@ -84,7 +86,7 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <a class="btn btn-success" th:attr="data-id=${prod.getId()}" href="#">Add to cart</a>
                     </div>
                 </div>
             </div>
